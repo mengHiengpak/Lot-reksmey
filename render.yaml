@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: lot-reksmey
-    runtime: static
-    staticPublishPath: .
-    branch: main
-    autoDeploy: true
