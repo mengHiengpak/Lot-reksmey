@@ -60,17 +60,17 @@ const songs = [
   {
     title: "About you",
     artist: "The 1975",
-    src: "assets/music/aboutyou.mp3",
+    src: "assets/music/aboutyou.mp3?v=3",
   },
   {
     title: "hate that i made you love me",
     artist: "Ariana Grande",
-    src: "assets/music/hatethat.mp3",
+    src: "assets/music/hatethat.mp3?v=3",
   },
   {
     title: "I Think They Call This Love ",
     artist: "Elliot James Reay",
-    src: "assets/music/theysay.mp3",
+    src: "assets/music/theysay.mp3?v=3",
   },
 ];
 
