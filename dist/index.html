@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="km">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>សម្រាប់អូន</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Kantumruy+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Taprom&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌷</text></svg>" />
+  </head>
+  <body>
+    <canvas id="petal-canvas" aria-hidden="true"></canvas>
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+
+    <main id="app">
+      <section id="gate-screen" class="screen active" aria-label="លេខកូដសម្ងាត់">
+        <div class="gate-card">
+          <div class="tulip-icon" aria-hidden="true">
+            <svg viewBox="0 0 80 90" class="tulip-svg">
+              <path d="M40 88 C40 60 28 52 28 40" stroke="#7dcf8a" stroke-width="3" fill="none" stroke-linecap="round" />
+              <path d="M40 70 C52 62 58 48 50 38" stroke="#7dcf8a" stroke-width="2" fill="none" />
+              <ellipse cx="52" cy="42" rx="8" ry="4" fill="#8be08f" transform="rotate(-30 52 42)" />
+              <path d="M40 44 C28 8 12 22 24 44 C32 56 40 52 40 44 Z" fill="#ff8ab5" />
+              <path d="M40 44 C52 8 68 22 56 44 C48 56 40 52 40 44 Z" fill="#ff6b9d" />
+              <path d="M40 44 C40 10 22 18 32 44 C36 54 40 50 40 44 Z" fill="#ffc1d8" />
+              <path d="M40 44 C40 10 58 18 48 44 C44 54 40 50 40 44 Z" fill="#ff9ec0" />
+            </svg>
+          </div>
+          <h1 class="serif gate-title">សម្រាប់អូន, <span id="gate-name">បងសំឡាញ់</span></h1>
+          <p class="gate-sub">សូមបញ្ចូលលេខកូដសម្ងាត់</p>
+          <div class="code-dots" id="code-dots" aria-hidden="true"></div>
+          <p class="error-msg" id="error-msg">លេខកូដមិនត្រឹមត្រូវទេ សូមព្យាយាមម្តងទៀត 🤍</p>
+          <div class="keypad" id="keypad"></div>
+        </div>
+      </section>
+
+      <section id="loading-screen" class="screen" aria-live="polite">
+        <div class="loading-wrap">
+          <div class="tulip-icon spin-soft">🌷</div>
+          <p class="serif loading-text">កំពុងផ្ទុកកាដូភ្ញាក់ផ្អើលរបស់អ្នក...</p>
+          <div class="loading-bar"><span></span></div>
+        </div>
+      </section>
+
+      <section id="gift-screen" class="screen" aria-label="ប្រអប់កាដូ">
+        <p class="gift-hint">ចុចលើប្រអប់កាដូដើម្បីបើក 🎁</p>
+        <button type="button" class="gift-btn" id="gift-box" aria-label="បើកកាដូ">
+          <div class="gift">
+            <div class="gift-lid">
+              <div class="lid-top"></div>
+              <div class="bow">
+                <span class="bow-left"></span>
+                <span class="bow-right"></span>
+                <span class="bow-knot"></span>
+              </div>
+            </div>
+            <div class="gift-body">
+              <div class="ribbon-v"></div>
+              <div class="ribbon-h"></div>
+            </div>
+          </div>
+        </button>
+      </section>
+
+      <section id="main-screen" class="screen" aria-label="ការអបអរសាទរថ្ងៃកំណើត">
+        <header class="hero">
+          <p class="eyebrow">✨ ថ្ងៃពិសេសរបស់អូន ✨</p>
+          <h1 class="serif glow-title">រីករាយថ្ងៃខួបកំណើត <span id="hero-name">អូនសម្លាញ់</span></h1>
+          <p class="hero-sub">ថ្ងៃនេះ • ជាថ្ងៃដ៏ពិសេសបំផុត</p>
+        </header>
+
+        <article class="card wish-card">
+          <p>
+            សូមជូនពរឱ្យអូនមានក្ដីសុខ សុខភាពល្អ និងសម្រេចបានរាល់ក្តីស្រមៃទាំងអស់របស់អូន។ 🤍
+          </p>
+          <p class="wish-extra">
+            អូនធ្វើឱ្យរាល់ខណៈពេលធម្មតាៗប្រែជាមានកក់ក្តៅ និងពិសេសខ្លាំងណាស់។ ថ្ងៃនេះ បងសូមចូលរួមអបអរសាទរមនុស្សម្នាក់ ដែលតែងតែធ្វើឱ្យបងញញឹមជារៀងរាល់ថ្ងៃ។
+          </p>
+        </article>
+
+        <section class="block">
+          <p class="kicker">— កាដូតូចមួយ —</p>
+          <h2 class="serif">បាច់ផ្កាឌីជីថលសម្រាប់អូន</h2>
+          <p class="lede">ផ្កានីមួយៗមានបង្កប់នូវសារពិសេសសម្រាប់តែអូនប៉ុណ្ណោះ</p>
+          <p class="flower-msg" id="flower-msg" hidden></p>
+          <div class="bouquet" id="bouquet">
+            <svg class="tree-svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <linearGradient id="trunkGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#59412c" />
+                  <stop offset="1" stop-color="#7a5233" />
+                </linearGradient>
+              </defs>
+              <ellipse cx="200" cy="478" rx="150" ry="14" fill="rgba(0,0,0,0.22)" />
+              <path d="M182 478 C188 410 196 340 192 270 L208 270 C204 340 212 410 218 478 Z" fill="url(#trunkGrad)" />
+              <g stroke="#6b4a2f" fill="none" stroke-linecap="round">
+                <path d="M200 275 C202 210 201 130 200 58" stroke-width="6" />
+                <path d="M196 300 C175 250 140 160 112 103" stroke-width="7" />
+                <path d="M204 300 C225 250 260 160 288 103" stroke-width="7" />
+                <path d="M192 325 C160 285 105 225 63 168" stroke-width="9" />
+                <path d="M208 325 C240 285 295 225 337 168" stroke-width="9" />
+                <path d="M194 340 C172 305 145 255 127 218" stroke-width="7" />
+                <path d="M206 340 C228 305 255 255 273 218" stroke-width="7" />
+                <path d="M200 300 C201 260 200 220 200 178" stroke-width="6" />
+              </g>
+            </svg>
+          </div>
+        </section>
+
+        <section class="block letter-block">
+          <p class="kicker">— ចេញពីបេះដូងរបស់បង —</p>
+          <h2 class="serif">សំបុត្រមួយច្បាប់សម្រាប់អូន</h2>
+          <div class="stars" aria-label="5 stars">★★★★★</div>
+          <div class="letter-scroll">
+            <article class="letter">
+              <p class="letter-date">នៅក្នុងថ្ងៃខួបកំណើតរបស់អូន ដោយក្តីស្រឡាញ់ពីបេះដូងរបស់បង</p>
+              <p>ជូនចំពោះ <span class="letter-name">អូន</span> ដែលជាទីស្រឡាញ់បំផុត,</p>
+              <p>
+                ប្រសិនបើបងអាចរៀបរាប់រាល់ខណៈពេលនៃក្ដីសុខដែលអូនបានផ្តល់ឱ្យបងជាពាក្យពេចន៍បាន សំបុត្រមួយច្បាប់នេះប្រាកដជាមិនអាចសរសេរអស់ឡើយ។ អូនបានចូលមកក្នុងជីវិតបង ហើយធ្វើឱ្យអ្វីៗគ្រប់យ៉ាងកាន់តែភ្លឺស្វាង និងល្អប្រសើរឡើង។
+              </p>
+              <p>
+                បងស្រឡាញ់ស្នាមញញឹម និងសំឡេងសើចរបស់អូន។ បងស្រឡាញ់ភាពរឹងមាំ និងចិត្តល្អរបស់អូន ទោះបីជាស្ថិតក្នុងស្ថានភាពលំបាកយ៉ាងណាក៏ដោយ។ អូនគឺជាកន្លែងដ៏មានសុវត្ថិភាព ជាកម្លាំងចិត្ត និងជាមនុស្សម្នាក់ដែលបងចូលចិត្តនិយាយឆ្លើយឆ្លងជាមួយបំផុត។
+              </p>
+              <p>
+                នៅថ្ងៃនេះ បងសង្ឃឹមថាអូននឹងទទួលបាននូវក្តីស្រឡាញ់យ៉ាងជ្រាលជ្រៅ។ មិនត្រឹមតែដោយសារតែវាជាថ្ងៃខួបកំណើតរបស់អូននោះទេ ប៉ុន្តែដោយសារតែការបានស្រឡាញ់អូន គឺជារឿងដ៏ល្អបំផុតដែលបានកើតឡើងក្នុងជីវិតរបស់បង។ បងសង្ឃឹមថាឆ្នាំនេះនឹងនាំមកនូវភាពស្ងប់សុខ ស្នាមញញឹមដ៏ស្រស់បំព្រង និងអ្វីៗគ្រប់យ៉ាងដែលអូនប្រាថ្នា។
+              </p>
+              <p>
+                អរគុណដែលបានកើតមកជាអូន និងបានជ្រើសរើសចែករំលែកជីវិតជាមួយបង។ បងនឹងនៅទីនេះរង់ចាំអូនជានិច្ច ទាំងថ្ងៃនេះ និងជារៀងរហូត។
+              </p>
+              <p class="signoff">ដោយក្តីស្រឡាញ់បំផុតពីសង្សាររបស់អូន​ pak menghieng 🤍</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="block">
+          <p class="kicker">— ការប្រមូលផ្តុំនូវការចងចាំ —</p>
+          <h2 class="serif">រូបថតនៃការចងចាំរបស់យើង</h2>
+          <p class="lede">ចុចដើម្បីមើលឱ្យកាន់តែច្បាស់ ✨</p>
+          <div class="polaroid-row">
+            <button type="button" class="polaroid" id="polaroid" aria-label="បើករូបថត">
+              <div class="polaroid-photo">
+                <img id="memory-photo" alt="ការចងចាំរបស់យើង" src="assets/photo_2026-10-12_23-45-52.jpg" />
+              </div>
+              <p class="polaroid-caption">ថ្ងៃដែរ​ពួកយើងបានណាត់ជួបគ្នាលើកដំបូង</p>
+            </button>
+          </div>
+        </section>
+
+        <section class="block">
+          <p class="kicker">— ដំណើរការរបស់យើង —</p>
+          <h2 class="serif">រឿងរ៉ាវដែលពួកយើងបានសរសេររួមគ្នា</h2>
+          <p class="lede">រាល់ជំហាន គឺជារឿងរ៉ាវមួយ</p>
+          <ol class="timeline">
+            <li>
+              <span class="t-icon">🌟</span>
+              <div>
+                <h3>ចំណុចចាប់ផ្តើមដំបូង</h3>
+                <p>លើកដំបូងដែលពួកយើងបានជួបគ្នា៖ ថ្ងៃដែលអ្វីៗគ្រប់យ៉ាងបានផ្លាស់ប្តូរ​ នៅពេលដែរបងបានទិញប្រហិតអោយអូនញ៉ាំ</p>
+              </div>
+            </li>
+            <li>
+              <span class="t-icon">💬</span>
+              <div>
+                <h3>ខណៈពេលដ៏ពិសេស</h3>
+                <p>ការសន្ទនាលើកដំបូងរបស់យើង៖ ពាក្យសម្តីដំបូងដែលចាប់ផ្តើមអ្វីៗគ្រប់យ៉ាងពិតជាល្អខ្លាំងណាស់បងចាំថាបងបានចាំអូននៅផ្លូវជិតប្រឡាយ</p>
+              </div>
+            </li>
+            <li>
+              <span class="t-icon">😂</span>
+              <div>
+                <h3>ខណៈពេលដ៏មានតម្លៃ</h3>
+                <p>ស្នាមញញឹម និងសំឡេងសើចមិនចេះចប់៖ ខណៈពេលដែលបងដឹងថារឿងនេះពិតជាពិសេសខ្លាំងណាស់</p>
+              </div>
+            </li>
+            <li>
+              <span class="t-icon">🎂</span>
+              <div>
+                <h3>ថ្ងៃនេះ</h3>
+                <p>ថ្ងៃដ៏ពិសេសបំផុតរបស់អូន៖ អបអរសាទរជូនចំពោះអូន ថ្ងៃនេះ និងជារៀងរហូត</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="block player-block">
+          <p class="kicker">— បទចម្រៀងរបស់យើង —</p>
+          <h2 class="serif">បញ្ជីបទចម្រៀងពិសេស</h2>
+          <p class="lede">បទចម្រៀងដែលធ្វើឱ្យបងនឹកឃើញដល់អូន</p>
+          <div class="player">
+            <div class="vinyl-wrap">
+              <div class="vinyl" id="vinyl">
+                <div class="vinyl-label"></div>
+              </div>
+            </div>
+            <div class="player-meta">
+              <p class="now-title" id="now-title">Shape of My Heart</p>
+              <p class="now-artist" id="now-artist">Backstreet Boys</p>
+              <div class="progress" id="progress">
+                <div class="progress-fill" id="progress-fill"></div>
+              </div>
+              <div class="time-row">
+                <span id="time-now">0:00</span>
+                <span id="time-total">0:00</span>
+              </div>
+              <div class="controls">
+                <button type="button" id="prev-btn" aria-label="មុន">⏮</button>
+                <button type="button" class="play-btn" id="play-btn" aria-label="លេង">▶</button>
+                <button type="button" id="next-btn" aria-label="បន្ទាប់">⏭</button>
+              </div>
+            </div>
+          </div>
+          <ul class="song-list" id="song-list"></ul>
+          <audio id="audio" preload="none"></audio>
+        </section>
+
+        <section class="block">
+          <p class="kicker">— ចេញពីបេះដូងបងទៅកាន់បេះដូងអូន —</p>
+          <h2 class="serif">មូលហេតុដែលបងដឹងគុណចំពោះវត្តមានរបស់អូន</h2>
+          <p class="lede">ក្រឡុកដប ហើយជ្រើសរើសសារមួយ 📩</p>
+          <button type="button" class="jar-btn" id="jar-btn" aria-label="ក្រឡុកដបសារ">
+            <svg class="jar-svg" viewBox="0 0 160 200">
+              <ellipse cx="80" cy="28" rx="28" ry="10" fill="#f8d7e8" opacity="0.85" />
+              <rect x="54" y="22" width="52" height="16" rx="6" fill="#e8b7d0" />
+              <path d="M42 48 C42 42 118 42 118 48 L110 170 C110 186 50 186 50 170 Z" fill="url(#jarGlass)" stroke="#f4c6dc" stroke-width="3" />
+              <defs>
+                <linearGradient id="jarGlass" x1="0" x2="1">
+                  <stop offset="0" stop-color="#5a2458" />
+                  <stop offset="1" stop-color="#8a3a72" />
+                </linearGradient>
+              </defs>
+              <g class="notes-in-jar">
+                <rect x="58" y="70" width="28" height="16" rx="2" fill="#fff3ea" transform="rotate(-12 72 78)" />
+                <rect x="78" y="92" width="30" height="16" rx="2" fill="#ffe0ef" transform="rotate(8 93 100)" />
+                <rect x="62" y="118" width="26" height="15" rx="2" fill="#fff8d6" transform="rotate(-6 75 125)" />
+                <rect x="80" y="140" width="24" height="14" rx="2" fill="#f3e0ff" transform="rotate(14 92 147)" />
+              </g>
+            </svg>
+          </button>
+          <p class="jar-note" id="jar-note">ចុចលើដបដើម្បីចាប់យកសារមួយ។</p>
+        </section>
+
+        <footer class="closing">
+          <p class="serif closing-line">សូមឱ្យជីវិតរបស់អូនពេញដោយផ្ការីកស្កុសស្កាយជានិច្ច 🌸</p>
+          <p>
+            នៅក្នុងថ្ងៃខួបកំណើតរបស់អូន បងសង្ឃឹមថា រាល់ការប្រាថ្នាសម្ងាត់ៗទាំងអស់របស់អូននឹងក្លាយជាការពិត។ អូនទទួលបានសេចក្តីស្រឡាញ់យ៉ាងជ្រាលជ្រៅបំផុត — ក្នុងគ្រប់ទង្វើតូចៗ រៀងរាល់ថ្ងៃ។
+          </p>
+          <p class="footer-sign">— ដោយក្តីស្រឡាញ់ និងការបួងសួងពីបេះដូង 💜 —</p>
+        </footer>
+      </section>
+    </main>
+
+    <div class="lightbox" id="lightbox" hidden>
+      <button type="button" class="lightbox-close" id="lightbox-close" aria-label="បិទ">✕</button>
+      <img id="lightbox-img" alt="រូបថតការចងចាំជិតៗ" />
+      <p class="lightbox-caption">ពួកយើង នៅក្នុងពិភពតូចមួយផ្ទាល់ខ្លួន</p>
+    </div>
+
+    <div class="birthday-alert" id="birthday-alert" hidden role="alertdialog" aria-labelledby="birthday-title">
+      <div class="birthday-card">
+        <p class="birthday-cake" aria-hidden="true">🎂</p>
+        <h2 class="serif" id="birthday-title">Happy Birthday to you</h2>
+        <p class="birthday-sub">រីករាយថ្ងៃខួបកំណើតអូន 🌸</p>
+        <button type="button" class="birthday-close" id="birthday-close">អរគុណ 🤍</button>
+      </div>
+    </div>
+
+    <canvas id="drop-canvas" aria-hidden="true"></canvas>
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+    <script src="app.js"></script>
+  </body>
+</html>
